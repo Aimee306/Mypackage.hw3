@@ -66,7 +66,7 @@ myreg <- function(formula, data) {
       Estimate = model$coefficients,
       Std.Error = model$std_err,
       t.value = t_values,
-      Pr(t) = p_values
+      p.value = p_values
     )
 
     # Print the summary output
