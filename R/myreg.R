@@ -1,4 +1,4 @@
-#' Perform linear regression using the normal equation learnt in BIOS 650 class.
+#' Perform linear regression using the normal equations learnt in BIOS 650 class.
 #'
 #' @param formula A formula specifying the outcome and predictor variables.
 #' @param data A data frame containing all the variables in the formula.
@@ -76,3 +76,4 @@ myreg <- function(formula, data) {
     cat("F-statistic:", round(model$f_value, 2), "on", model$df_model, "and",
         model$df_residual, "DF,  p-value:", round(model$p_value, digits = 4), "\n")
     }
+
