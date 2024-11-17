@@ -48,6 +48,7 @@ myreg <- function(formula, data) {
     ),
     class = "myreg"
   )
+}
 
   #' Summarize a linear regression model
   #'
@@ -65,7 +66,7 @@ myreg <- function(formula, data) {
       Estimate = model$coefficients,
       Std.Error = model$std_err,
       t.value = t_values,
-      Pr(>|t|) = p_values
+      Pr(t) = p_values
     )
 
     # Print the summary output
@@ -74,4 +75,4 @@ myreg <- function(formula, data) {
     cat("Adjusted R-squared:", round(model$adj_r_squared, 4), "\n")
     cat("F-statistic:", round(model$f_value, 2), "on", model$df_model, "and",
         model$df_residual, "DF,  p-value:", round(model$p_value, digits = 4), "\n")
-  }
+    }
