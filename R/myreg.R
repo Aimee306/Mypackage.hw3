@@ -67,45 +67,46 @@ myreg <- function(formula, data) {
       adj.r.squared = adj_r_squared,
       fstatistic = f_stat,
       p_value = p_value,
+      df_model = df_model,
+      df_residual = df_residual
     ),
     class = "myreg"
   )
 }
 
-  #' Summarize a linear regression model
-  #'
-  #' @description
-  #' Summary.myreg function provides a summary of the results from a linear regression model fitted using myreg function.
-  #' The summary includes estimated coefficients, their standard errors, t-values, p-values,
-  #' R-squared, adjusted R-squared, and the F-statistic with its p-value.
-  #' @param model An object of class "myreg".
-  #' @examples
-  #' # Fit a regression model
-  #' iris_model <- myreg(Sepal.Length ~ Sepal.Width + Species, data = iris)
-  #'
-  #' # Summarize the regression model
-  #' summary(iris_model)
-  #' @export
+#' Summarize a linear regression model
+#'
+#' @description
+#' Summary.myreg function provides a summary of the results from a linear regression model fitted using myreg function.
+#' The summary includes estimated coefficients, their standard errors, t-values, p-values,
+#' R-squared, adjusted R-squared, and the F-statistic with its p-value.
+#' @param model An object of class "myreg".
+#' @examples
+#' # Fit a regression model
+#' iris_model <- myreg(Sepal.Length ~ Sepal.Width + Species, data = iris)
+#'
+#' # Summarize the regression model
+#' summary(iris_model)
+#' @export
 
-  summary.myreg <- function(model) {
-    # Calculate t-values and p-values for coefficients
-    t_values <- model$coefficients / model$std_err
-    p_values <- 2 * pt(-abs(t_values), df = model$df_residual)
+summary.myreg <- function(model) {
+  # Calculate t-values and p-values for coefficients
+  t_values <- model$coef / model$std_err
+  p_values <- 2 * pt(-abs(t_values), df = model$df_residual)
 
-    # Create a table of coefficients
-    coef_table <- data.frame(
-      Coefficients = names(model$coefficients),
-      Estimate = model$coefficients,
-      Std.Error = model$std_err,
-      t.value = t_values,
-      p.value = p_values
-    )
+  # Create a table of coefficients
+  coef_table <- data.frame(
+    Coefficients = names(model$coef),
+    Estimate = model$coef,
+    Std.Error = model$std_err,
+    t.value = t_values,
+    p.value = p_values
+  )
 
-    # Print the summary output
-    print(coef_table)
-    cat("\nR-squared:", round(model$r_squared, 4), )
-    cat("Adjusted R-squared:", round(model$adj_r_squared, 4), "\n")
-    cat("F-statistic:", round(model$f_stat, 2), "on", model$df_model, "and",
-        model$df_residual, "DF,  p-value:", round(model$p_value, digits = 4), "\n")
-    }
-
+  # Print the summary output
+  print(coef_table)
+  cat("\nR-squared:", round(model$r.squared, 4))
+  cat(" Adjusted R-squared:", round(model$adj.r.squared, 4), "\n")
+  cat("F-statistic:", round(model$f_stat, 2), "on", model$df_model, "and",
+      model$df_residual, "DF,  p-value:", round(model$p_value, digits = 4), "\n")
+}
