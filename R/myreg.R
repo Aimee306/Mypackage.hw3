@@ -1,7 +1,29 @@
-#' Perform linear regression using the normal equations learnt in BIOS 650 class.
+#' Perform linear regression using the normal equation.
+#'
+#' @description
+#' Myreg function performs linear regression using the normal equation method.
+#' It calculates regression coefficients, fitted values, residuals, and key goodness-of-fit metrics
+#' such as R-squared, adjusted R-squared, F-statistic, and p-values.
 #'
 #' @param formula A formula specifying the outcome and predictor variables.
 #' @param data A data frame containing all the variables in the formula.
+#'
+#' @examples
+#' # Fit a linear regression model using the iris dataset
+#' iris_model <- myreg(Sepal.Length ~ Sepal.Width + Species, data = iris)
+#'
+#' # Access regression coefficients
+#' iris_model$coefficients
+#'
+#' # Access the fitted values and residuals
+#' head(iris_model$fitted.values)
+#' head(iris_model$residuals)
+#'
+#' # Model diagnosis using residuals vs. fitted values plot
+#' plot(iris_model$fitted.values, iris_model$residuals,
+#'      main = "Residuals vs. Fitted Values",
+#'      xlab = "Fitted Values",
+#'      ylab = "Residuals")
 #' @export
 
 myreg <- function(formula, data) {
@@ -52,7 +74,17 @@ myreg <- function(formula, data) {
 
   #' Summarize a linear regression model
   #'
+  #' @description
+  #' Summary.myreg function provides a summary of the results from a linear regression model fitted using myreg function.
+  #' The summary includes estimated coefficients, their standard errors, t-values, p-values,
+  #' R-squared, adjusted R-squared, and the F-statistic with its p-value.
   #' @param model An object of class "myreg".
+  #' @examples
+  #' # Fit a regression model
+  #' iris_model <- myreg(Sepal.Length ~ Sepal.Width + Species, data = iris)
+  #'
+  #' # Summarize the regression model
+  #' summary(iris_model)
   #' @export
 
   summary.myreg <- function(model) {

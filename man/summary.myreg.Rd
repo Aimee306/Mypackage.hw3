@@ -10,5 +10,14 @@
 \item{model}{An object of class "myreg".}
 }
 \description{
-Summarize a linear regression model
+Summary.myreg function provides a summary of the results from a linear regression model fitted using myreg function.
+The summary includes estimated coefficients, their standard errors, t-values, p-values,
+R-squared, adjusted R-squared, and the F-statistic with its p-value.
+}
+\examples{
+# Fit a regression model
+iris_model <- myreg(Sepal.Length ~ Sepal.Width + Species, data = iris)
+
+# Summarize the regression model
+summary(iris_model)
 }

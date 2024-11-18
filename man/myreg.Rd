@@ -2,7 +2,7 @@
 % Please edit documentation in R/myreg.R
 \name{myreg}
 \alias{myreg}
-\title{Perform linear regression using the normal equation learnt in BIOS 650 class.}
+\title{Perform linear regression using the normal equation.}
 \usage{
 myreg(formula, data)
 }
@@ -12,5 +12,24 @@ myreg(formula, data)
 \item{data}{A data frame containing all the variables in the formula.}
 }
 \description{
-Perform linear regression using the normal equation learnt in BIOS 650 class.
+Myreg function performs linear regression using the normal equation method.
+It calculates regression coefficients, fitted values, residuals, and key goodness-of-fit metrics
+such as R-squared, adjusted R-squared, F-statistic, and p-values.
+}
+\examples{
+# Fit a linear regression model using the iris dataset
+iris_model <- myreg(Sepal.Length ~ Sepal.Width + Species, data = iris)
+
+# Access regression coefficients
+iris_model$coefficients
+
+# Access the fitted values and residuals
+head(iris_model$fitted.values)
+head(iris_model$residuals)
+
+# Model diagnosis using residuals vs. fitted values plot
+plot(iris_model$fitted.values, iris_model$residuals,
+     main = "Residuals vs. Fitted Values",
+     xlab = "Fitted Values",
+     ylab = "Residuals")
 }
