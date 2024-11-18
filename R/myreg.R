@@ -65,7 +65,7 @@ myreg <- function(formula, data) {
       std.error = std_err,
       r.squared = r_squared,
       adj.r.squared = adj_r_squared,
-      fstatistic = f_value,
+      fstatistic = f_stat,
       p_value = p_value,
     ),
     class = "myreg"
