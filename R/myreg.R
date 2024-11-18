@@ -105,7 +105,7 @@ myreg <- function(formula, data) {
     print(coef_table)
     cat("\nR-squared:", round(model$r_squared, 4), )
     cat("Adjusted R-squared:", round(model$adj_r_squared, 4), "\n")
-    cat("F-statistic:", round(model$f_value, 2), "on", model$df_model, "and",
+    cat("F-statistic:", round(model$f_stat, 2), "on", model$df_model, "and",
         model$df_residual, "DF,  p-value:", round(model$p_value, digits = 4), "\n")
     }
 
