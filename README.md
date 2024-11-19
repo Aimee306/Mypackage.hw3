@@ -1,6 +1,6 @@
 [![R-CMD-check.yaml](https://github.com/Aimee306/Mypackage.hw3/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Aimee306/Mypackage.hw3/actions/workflows/R-CMD-check.yaml)
 
-[![test-coverage.yaml](https://github.com/Aimee306/Mypackage.hw3/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/Aimee306/Mypackage.hw3/actions/workflows/test-coverage.yaml)
+[![codecov](https://codecov.io/gh/Aimee306/Mypackage.hw3/branch/main/graph/badge.svg)](https://codecov.io/gh/Aimee306/Mypackage.hw3)
 
 ## **Overview**
 Mypackage.hw3 is an R package that implements linear regression using the normal equation. The myreg 
