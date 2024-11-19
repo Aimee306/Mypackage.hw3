@@ -1,1 +1,4 @@
 exportPattern("^[[:alpha:]]+")
+importFrom(graphics, abline)
+importFrom(stats, model.frame, model.matrix, model.response, pf, setNames)
+importFrom(bench, mark)
