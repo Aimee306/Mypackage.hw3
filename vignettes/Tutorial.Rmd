@@ -1,0 +1,112 @@
+---
+title: "Tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Mypackage.hw3)
+library(bench)
+```
+
+## Usage Example
+The myreg function can be applied to the iris dataset to model the relationship between Sepal Length (response variable) and predictors such as Sepal Width and Petal Length. This example demonstrates how to use the function for linear regression and interpret the model outputs.
+```{r}
+# Fit a linear regression model using myreg (Ex: using iris dataset)
+iris_model <- myreg(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+
+# View the regression coefficients
+iris_model$coefficients
+
+# View the adjusted R-squared value
+iris_model$adj.r.squared
+```
+
+The plot_residuals function creates a diagnostic plot of residuals against fitted values. This plot is essential for evaluating the following of the linear regression model:
+
+1) Linearity: The residuals should show no systematic pattern.
+
+2) Homoscedasticity: The spread of residuals should remain consistent across fitted values.
+
+3) Outliers: Points far from the others may indicate outliers or influential observations.
+```{r}
+# Generate the residuals vs. fitted values plot
+plot_residuals(iris_model)
+```
+
+## Test the Correctness.
+```{r}
+# Fit models using iris dataset
+my_model <- myreg(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+lm_model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+
+# Compare coefficients
+all.equal(my_model$coefficients, lm_model$coef)
+
+# Compare fitted values
+all.equal(unname(my_model$fitted.values), unname(lm_model$fitted.values))
+
+# Compare residuals
+all.equal(unname(my_model$residuals), unname(lm_model$residuals))
+
+# Compare R-squared
+my_r_squared <- my_model$r.squared
+lm_r_squared <- summary(lm_model)$r.squared
+all.equal(my_r_squared, lm_r_squared)
+```
+All tests returned TRUE, indicating that the myreg function produces results consistent 
+with the original lm function. This validates the correctness of the myreg function.
+
+## Test the Efficiency.
+```{r}
+# Benchmark the performance of myreg vs lm
+efficiency_results <- bench::mark(
+  myreg = {my_model <- myreg(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+    NULL  },
+  lm = {lm_model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+    NULL },
+  iterations = 100  
+)
+efficiency_results$expression <- c("myreg", "lm")
+
+print(efficiency_results)
+```
+
+```{r}
+# Benchmark the performance of plot_residuals vs base plot
+efficiency_plot_results <- bench::mark(
+  plot_residuals = {
+    iris_model <- myreg(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+    pdf(NULL) 
+    plot_residuals(iris_model)
+    dev.off() 
+    invisible() },
+  base_plot = {
+    lm_model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+    pdf(NULL) 
+    plot(
+      lm_model$fitted.values, 
+      lm_model$residuals, 
+      main = "Residuals vs Fitted Values",
+      xlab = "Fitted Values", 
+      ylab = "Residuals"
+    )
+    dev.off() 
+    invisible()},
+  iterations = 100 
+)
+efficiency_plot_results$expression <- c("plot_residuals", "lm_plot")
+
+print(efficiency_plot_results)
+```
+From the table, we can see that both myreg and plot_residuals functions aren’t as efficient as the lm function, but its value lies in helping people understand regression by breaking down each step. Paired with the plot_residuals function, myreg provides a convenient integrated approach to model diagnosis, catering to users who require more than just regression coefficients.
