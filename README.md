@@ -1,3 +1,5 @@
+[![R-CMD-check.yaml](https://github.com/Aimee306/Mypackage.hw3/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Aimee306/Mypackage.hw3/actions/workflows/R-CMD-check.yaml)
+
 ## **Overview**
 Mypackage.hw3 is an R package that implements linear regression using the normal equation. The myreg 
 function simplifies the modeling process while providing detailed insights into regression coefficients, 
